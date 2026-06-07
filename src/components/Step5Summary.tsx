@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useState, useEffect } from 'react';
 import { MugFrontOption, MugBackOption, MugModelOption, PackagingOption, OrderState } from '../types';
 import { FRONT_OPTIONS, BACK_OPTIONS, MUG_MODELS, PACKAGING_OPTIONS, WHATSAPP_CONTACT_NUMBER, getPackagingPrice } from '../data';
 import { Landmark, MessageSquareText, ShieldCheck, ShoppingBag, PhoneCall, Sparkles } from 'lucide-react';
@@ -12,6 +13,30 @@ interface Step5SummaryProps {
 }
 
 export default function Step5Summary({ order }: Step5SummaryProps) {
+  const [showStickyButton, setShowStickyButton] = useState(true);
+
+  useEffect(() => {
+    const scrollContainer = document.getElementById('main-scrollable-content');
+    if (!scrollContainer) return;
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
+      // Scrollable range check: if remaining scroll is small, hide
+      const nearBottom = scrollHeight - scrollTop - clientHeight < 100;
+      setShowStickyButton(!nearBottom);
+    };
+
+    scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Delay check slightly to let DOM render completely and settle heights
+    const timeoutId = setTimeout(handleScroll, 100);
+
+    return () => {
+      scrollContainer.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
   // Find correct options based on IDs
   const frontOption = FRONT_OPTIONS.find(f => f.id === order.frontId) || FRONT_OPTIONS[0];
   const backOption = BACK_OPTIONS.find(b => b.id === order.backType) || BACK_OPTIONS[0];
@@ -40,15 +65,40 @@ export default function Step5Summary({ order }: Step5SummaryProps) {
   const generateWhatsAppLink = () => {
     const dadosText = getFormattedDataText();
     
-    const message = `Olá! Quero fazer meu pedido de Dia dos Namorados na Time Imprint:
-Frente: ${frontOption.name}
-Verso: ${backOption.name}
-Dados: ${dadosText}
-Caneca: ${mugModel.name}
-Embalagem: ${packaging.name}
-Valor total: R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-Prazo: Fica pronto antes do Dia dos Namorados!
-Entrega/Retirada: A combinar por aqui.`;
+    const message = `*💝 NOVO PEDIDO - TIME IMPRINT 💝*
+_Especial Dia dos Namorados_ 🗓️
+
+Olá! Acabei de montar meu pedido personalizado pelo site e quero confirmar os detalhes por aqui:
+
+🎨 *FRENTE DA CANECA*
+• ${frontOption.name}
+
+🔄 *VERSO DA CANECA*
+• ${backOption.name}
+
+📝 *DADOS DA PERSONALIZAÇÃO*
+• ${dadosText}
+
+☕ *MODELO DA CANECA*
+• ${mugModel.name}
+
+🎁 *EMBALAGEM / ADICIONAL*
+• ${packaging.name}
+
+━━━━━━━━━━━━━━━━━━━━━
+
+⏳ *PRAZO DE PRODUÇÃO*
+• *Fica pronto antes de Dia dos Namorados!* 🚀
+
+📦 *ENTREGA OU RETIRADA*
+• A combinar pelo WhatsApp 📍
+
+💵 *VALOR TOTAL*
+• *R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}*
+
+━━━━━━━━━━━━━━━━━━━━━
+
+Como posso prosseguir com o pagamento e combinar a entrega/retirada? ✨`;
 
     const encodedMessage = encodeURIComponent(message);
     return `https://api.whatsapp.com/send?phone=${WHATSAPP_CONTACT_NUMBER}&text=${encodedMessage}`;
@@ -180,6 +230,29 @@ Entrega/Retirada: A combinar por aqui.`;
           className="whatsapp-pulse flex items-center justify-center gap-2.5 w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm rounded-2xl shadow-lg transition-transform hover:scale-[1.01] uppercase tracking-wide cursor-pointer"
         >
           <MessageSquareText className="w-5 h-5 fill-current" />
+          Enviar meu pedido no WhatsApp
+        </a>
+      </div>
+
+      {/* Brand Footer */}
+      <div className="text-center text-[10px] text-slate-400 font-medium pt-3 pb-16">
+        Desenvolvido por <span className="font-bold text-rose-500">Time Imprint</span> • Envios Rápidos 🚀
+      </div>
+
+      {/* Sticky Bottom Floating WhatsApp Bar */}
+      <div 
+        className={`fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto z-40 px-4.5 py-4 bg-[#fffdfd]/95 backdrop-blur-md border-t border-rose-100/30 flex items-center justify-center lg:absolute lg:bottom-0 lg:rounded-b-[32px] transition-all duration-300 ${
+          showStickyButton ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
+        }`}
+      >
+        <a
+          id="sticky-btn-whatsapp-send-order"
+          href={generateWhatsAppLink()}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="whatsapp-pulse flex items-center justify-center gap-2.5 w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-lg hover:scale-[1.01] transition-all uppercase tracking-wide cursor-pointer"
+        >
+          <MessageSquareText className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
           Enviar meu pedido no WhatsApp
         </a>
       </div>

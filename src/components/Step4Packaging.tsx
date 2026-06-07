@@ -5,7 +5,7 @@
 
 import { PackagingOption, MugModelOption } from '../types';
 import { PACKAGING_OPTIONS, getPackagingPrice } from '../data';
-import { Check, Flame, Gift } from 'lucide-react';
+import { Check, Flame, Gift, X } from 'lucide-react';
 
 interface Step4PackagingProps {
   selectedPackagingId: string;
@@ -62,19 +62,28 @@ export default function Step4Packaging({
               }`}
             >
               <div>
-                <div className="relative w-full aspect-[4/3] bg-slate-50 overflow-hidden">
-                  <img
-                    src={pkg.image}
-                    alt={pkg.name}
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
+                <div className="relative w-full aspect-[4/3] bg-slate-50 overflow-hidden flex items-center justify-center">
+                  {pkg.id === 'sem_embalagem' ? (
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-slate-100/50 border-b border-slate-100">
+                      <div className="w-12 h-12 rounded-full bg-slate-200/45 flex items-center justify-center text-slate-400 group-hover:scale-110 transition-transform duration-300">
+                        <X className="w-6 h-6 stroke-[3]" />
+                      </div>
+                      <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-2">Sem Adicionais</span>
+                    </div>
+                  ) : (
+                    <img
+                      src={pkg.image}
+                      alt={pkg.name}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  )}
                   {isSelected && (
                     <div className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 shadow-md">
                       <Check className="w-3.5 h-3.5 font-extrabold stroke-[3]" />
                     </div>
                   )}
-                  {pkg.price > 15 && (
+                  {pkg.id !== 'sem_embalagem' && pkg.price > 15 && (
                     <span className="absolute bottom-1.5 left-1.5 bg-rose-600 text-white text-[9px] px-1.5 py-0.5 rounded-md font-bold uppercase tracking-tight flex items-center gap-0.5 animate-pulse">
                       <Flame className="w-2.5 h-2.5 fill-current" />
                       Mais Vendido
