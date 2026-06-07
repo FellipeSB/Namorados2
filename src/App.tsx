@@ -197,7 +197,7 @@ export default function App() {
           </main>
 
           {/* Sticky checkout controller button block (fished at the bottom of standard mobile setup) */}
-          {step > 0 && (
+          {step > 0 && step < 5 && (
             <div id="sticky-footer" className="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto z-20 px-4.5 py-4 bg-[#fffdfd]/90 backdrop-blur-md border-t border-rose-100/30 flex items-center justify-between gap-3 lg:absolute lg:bottom-0 lg:rounded-b-[32px]">
               
               {step === 1 && (
@@ -257,12 +257,6 @@ export default function App() {
                     Ver Resumo Geral
                     <ArrowRight className="w-3.5 h-3.5 text-rose-500" />
                   </button>
-                </div>
-              )}
-
-              {step === 5 && (
-                <div className="w-full text-center text-[10px] text-slate-400 font-medium">
-                  Desenvolvido por <span className="font-bold text-rose-500">Time Imprint</span> • Envios Rápidos 🚀
                 </div>
               )}
 
