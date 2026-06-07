@@ -1,0 +1,6 @@
+{
+  "name": "Caneca Personalizada - Dia dos Namorados",
+  "description": "Monte seu pedido de caneca personalizada para o Dia dos Namorados em poucos passos simples e envie direto pelo WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
