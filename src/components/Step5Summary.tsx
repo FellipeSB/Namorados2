@@ -65,17 +65,13 @@ export default function Step5Summary({ order }: Step5SummaryProps) {
   const generateWhatsAppLink = () => {
     const dadosText = getFormattedDataText();
     
-    const message = `*💝 NOVO PEDIDO - TIME IMPRINT 💝*
-_Especial Dia dos Namorados_ 🗓️
-
-Olá! Acabei de montar meu pedido personalizado pelo site e quero confirmar os detalhes por aqui:
+    const message = `Olá! Acabei de montar meu pedido personalizado pelo site e quero confirmar os detalhes por aqui:
 
 🎨 *FRENTE DA CANECA*
 • ${frontOption.name}
 
 🔄 *VERSO DA CANECA*
 • ${backOption.name}
-
 📝 *DADOS DA PERSONALIZAÇÃO*
 • ${dadosText}
 
@@ -85,18 +81,16 @@ Olá! Acabei de montar meu pedido personalizado pelo site e quero confirmar os d
 🎁 *EMBALAGEM / ADICIONAL*
 • ${packaging.name}
 
-━━━━━━━━━━━━━━━━━━━━━
-
 ⏳ *PRAZO DE PRODUÇÃO*
 • *Fica pronto antes de Dia dos Namorados!* 🚀
 
 📦 *ENTREGA OU RETIRADA*
 • A combinar pelo WhatsApp 📍
 
-💵 *VALOR TOTAL*
+💵 *VALOR TOTAL (sem entrega)*
 • *R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}*
 
-━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━
 
 Como posso prosseguir com o pagamento e combinar a entrega/retirada? ✨`;
 
