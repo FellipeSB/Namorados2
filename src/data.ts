@@ -231,26 +231,26 @@ export const MUG_MODELS: MugModelOption[] = [
 export const PACKAGING_OPTIONS: PackagingOption[] = [
   {
     id: 'sem_embalagem',
-    name: 'Não quero embalagem',
-    price: 0.00,
+    name: 'Somente Caneca Branca',
+    price: 38.90,
     image: 'https://images.unsplash.com/photo-1607344645866-009c320c5ab8?q=80&w=400&auto=format&fit=crop'
   },
   {
     id: 'emb_coracao_pelucia',
-    name: 'Caixa Kraft com Visor e Coração de Pelúcia',
-    price: 19.90,
+    name: 'Caixa kraft com pelúcia',
+    price: 58.90,
     image: 'https://i.ibb.co/mFM6zYMx/Emb-Cora-o-Pel-cia.webp'
   },
   {
     id: 'emb_coracao_mdf',
-    name: 'Caixa Coração em MDF com KitKats e Coração de Pelúcia',
-    price: 49.90,
+    name: 'Caixa Coração em MDF',
+    price: 89.90,
     image: 'https://i.ibb.co/r8rcnyz/Emb-Cora-o-MDF.webp'
   },
   {
     id: 'emb_tabua',
-    name: 'Caixa Kraft com Visor e Tábua Personalizada a laser',
-    price: 24.90,
+    name: 'Caixa kraft com madeira laser',
+    price: 64.80,
     image: 'https://i.ibb.co/W43VFdw1/Emb-T-bua.webp'
   },
   {
@@ -279,27 +279,9 @@ export const PACKAGING_OPTIONS: PackagingOption[] = [
   }
 ];
 
-export function getPackagingPrice(packagingId: string, mugPrice: number): number {
-  switch (packagingId) {
-    case 'sem_embalagem':
-      return 0.00;
-    case 'emb_coracao_pelucia':
-      return 19.90;
-    case 'emb_coracao_mdf':
-      return 49.90;
-    case 'emb_tabua':
-      return 24.90;
-    case 'cesta_carinho':
-      return Math.max(0, 149.90 - mugPrice);
-    case 'cesta_sonho':
-      return Math.max(0, 149.90 - mugPrice);
-    case 'cesta_duo_plus':
-      return Math.max(0, 249.90 - mugPrice);
-    case 'cesta_amor':
-      return Math.max(0, 179.90 - mugPrice);
-    default:
-      return 0.00;
-  }
+export function getPackagingPrice(packagingId: string, mugPrice: number = 0): number {
+  const pkg = PACKAGING_OPTIONS.find(p => p.id === packagingId);
+  return pkg ? pkg.price : 38.90;
 }
 
 export const WHATSAPP_CONTACT_NUMBER = '5551997098567';

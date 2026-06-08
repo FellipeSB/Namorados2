@@ -23,7 +23,7 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
         </div>
 
         <h1 className="text-3xl font-black text-gray-900 tracking-tight leading-tight font-serif px-2">
-          Monte seu <span className="text-rose-600 underline decoration-rose-200 decoration-wavy underline-offset-4">presente personalizado</span> para o Dia dos Namorados em poucos passos.
+          Monte sua <span className="text-rose-600 underline decoration-rose-200 decoration-wavy underline-offset-4">Caneca</span> e depois escolha sua <span className="text-rose-600 underline decoration-rose-200 decoration-wavy underline-offset-4">Cesta</span> de Dia dos Namorados.
         </h1>
       </div>
 
@@ -43,9 +43,9 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
             <div className="space-y-0.5 text-left">
               <span className="text-[9px] font-black uppercase tracking-wider text-rose-500 font-mono">Passo 1</span>
               <p className="text-xs font-bold text-slate-900 leading-snug">
-                Escolha a frase da caneca
+                Escolha a frase da Caneca
               </p>
-              <p className="text-[10px] text-gray-400 leading-none">Vários templates exclusivos românticos</p>
+              <p className="text-[10px] text-gray-400 leading-none">Vários templates românticos exclusivos</p>
             </div>
           </div>
 
@@ -57,37 +57,23 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
             <div className="space-y-0.5 text-left">
               <span className="text-[9px] font-black uppercase tracking-wider text-orange-500 font-mono">Passo 2</span>
               <p className="text-xs font-bold text-slate-900 leading-snug">
-                Escolha como decorar o verso
+                Escolha o verso
               </p>
-              <p className="text-[10px] text-gray-400 leading-none">Foto, código de música Spotify, datas especiais, etc.</p>
+              <p className="text-[10px] text-gray-400 leading-none">Personalize com Foto, Música do Spotify, Data de Namoro ou Nome</p>
             </div>
           </div>
 
           {/* Step 3 */}
           <div className="flex items-center gap-3.5 p-3.5 bg-white rounded-2xl border border-slate-100/80 shadow-xs">
-            <div className="p-2.5 rounded-xl bg-purple-50/70 text-purple-600 shrink-0">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <div className="space-y-0.5 text-left">
-              <span className="text-[9px] font-black uppercase tracking-wider text-purple-500 font-mono">Passo 3</span>
-              <p className="text-xs font-bold text-slate-900 leading-snug">
-                Torne ainda mais especial
-              </p>
-              <p className="text-[10px] text-gray-400 leading-none">Escolha a caneca clássica, com colher, ou alça com coração</p>
-            </div>
-          </div>
-
-          {/* Step 4 */}
-          <div className="flex items-center gap-3.5 p-3.5 bg-white rounded-2xl border border-slate-100/80 shadow-xs">
             <div className="p-2.5 rounded-xl bg-emerald-50/70 text-emerald-600 shrink-0">
               <Gift className="w-5 h-5 text-emerald-600" />
             </div>
             <div className="space-y-0.5 text-left">
-              <span className="text-[9px] font-black uppercase tracking-wider text-emerald-500 font-mono">Passo 4</span>
+              <span className="text-[9px] font-black uppercase tracking-wider text-emerald-500 font-mono">Passo 3</span>
               <p className="text-xs font-bold text-slate-900 leading-snug">
-                Selecione um embrulho incrível
+                Escolha em qual cesta ela vai ir
               </p>
-              <p className="text-[10px] text-gray-400 leading-none">Adicione caixinhas luxo ou cestas românticas únicas</p>
+              <p className="text-[10px] text-gray-400 leading-none">Adicione caixas românticas exclusivas ou lindas cestas</p>
             </div>
           </div>
         </div>

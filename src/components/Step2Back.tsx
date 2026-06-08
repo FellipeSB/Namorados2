@@ -56,6 +56,11 @@ export default function Step2Back({
   };
 
   const validateAndProceed = () => {
+    if (!selectedBackType) {
+      setValidationError('Por favor, selecione acima como você quer personalizar o verso da caneca!');
+      return;
+    }
+
     if (selectedBackType === 'calendario') {
       if (!anniversaryDate.trim()) {
         setValidationError('Por favor, informe a data de namoro.');
@@ -79,6 +84,11 @@ export default function Step2Back({
         setValidationError('Por favor, informe os nomes do casal.');
         return;
       }
+    }
+
+    // Dismiss soft keyboard & mobile automatic focus zoom if any
+    if (document.activeElement && typeof (document.activeElement as any).blur === 'function') {
+      (document.activeElement as any).blur();
     }
 
     setValidationError('');
@@ -161,6 +171,12 @@ export default function Step2Back({
           Informações da Personalização
         </h3>
 
+        {!selectedBackType && (
+          <div className="text-center py-6 text-slate-400 font-medium text-xs">
+            ✨ Selecione um modelo de verso acima para começar a personalizar!
+          </div>
+        )}
+
         {/* Warning messages */}
         {(selectedBackType === 'foto' || selectedBackType === 'spotify') && (
           <div className="flex gap-2.5 items-start bg-indigo-50/70 text-indigo-950 p-3 rounded-xl border border-indigo-100/60 text-xs">
@@ -186,7 +202,7 @@ export default function Step2Back({
                   placeholder="Ex: 12 de Junho de 2021 ou 12/06/2021"
                   value={anniversaryDate}
                   onChange={(e) => handleFieldChange('anniversaryDate', e.target.value)}
-                  className="w-full text-sm pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:bg-white transition-all text-gray-800"
+                  className="w-full text-base pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:bg-white transition-all text-gray-800"
                 />
               </div>
             </div>
@@ -201,7 +217,7 @@ export default function Step2Back({
                 placeholder="Ex: Carlos & Sofia"
                 value={coupleNames}
                 onChange={(e) => handleFieldChange('coupleNames', e.target.value)}
-                className="w-full text-sm px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:bg-white transition-all text-gray-800"
+                className="w-full text-base px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:bg-white transition-all text-gray-800"
               />
             </div>
           </div>
@@ -221,7 +237,7 @@ export default function Step2Back({
                   placeholder="Ex: Perfect - Ed Sheeran"
                   value={songName}
                   onChange={(e) => handleFieldChange('songName', e.target.value)}
-                  className="w-full text-sm pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:bg-white transition-all text-gray-800"
+                  className="w-full text-base pl-10 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:bg-white transition-all text-gray-800"
                 />
               </div>
             </div>
@@ -236,7 +252,7 @@ export default function Step2Back({
                 placeholder="Ex: Carlos & Sofia"
                 value={coupleNames}
                 onChange={(e) => handleFieldChange('coupleNames', e.target.value)}
-                className="w-full text-sm px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:bg-white transition-all text-gray-800"
+                className="w-full text-base px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:bg-white transition-all text-gray-800"
               />
             </div>
           </div>
@@ -260,7 +276,7 @@ export default function Step2Back({
                 placeholder="Ex: Carlos & Sofia"
                 value={coupleNames}
                 onChange={(e) => handleFieldChange('coupleNames', e.target.value)}
-                className="w-full text-sm px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:bg-white transition-all text-gray-800"
+                className="w-full text-base px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-500 focus:bg-white transition-all text-gray-800"
               />
             </div>
           </div>

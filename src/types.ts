@@ -10,7 +10,7 @@ export interface MugFrontOption {
   description?: string;
 }
 
-export type VersoType = 'foto' | 'spotify' | 'calendario' | 'nome';
+export type VersoType = 'foto' | 'spotify' | 'calendario' | 'nome' | '';
 
 export interface MugBackOption {
   id: VersoType;

@@ -9,9 +9,7 @@ import WizardHeader from './components/WizardHeader';
 import WelcomeScreen from './components/WelcomeScreen';
 import Step1Front from './components/Step1Front';
 import Step2Back from './components/Step2Back';
-import Step3CupModel from './components/Step3CupModel';
 import Step4Packaging from './components/Step4Packaging';
-import Step5Summary from './components/Step5Summary';
 import { OrderState, VersoType } from './types';
 import { MUG_MODELS, FRONT_OPTIONS, PACKAGING_OPTIONS, getPackagingPrice } from './data';
 import { Heart, Sparkles, AlertCircle, ArrowRight } from 'lucide-react';
@@ -31,18 +29,18 @@ export default function App() {
   // Set default selections to prevent empty state crashes
   const [order, setOrder] = useState<OrderState>({
     frontId: FRONT_OPTIONS[0].id,
-    backType: 'foto',
+    backType: '',
     backData: {
       coupleNames: '',
       anniversaryDate: '',
       songName: ''
     },
     mugModelId: MUG_MODELS[0].id,
-    packagingId: 'sem_embalagem'
+    packagingId: ''
   });
 
   const nextStep = () => {
-    if (step < 5) setStep(step + 1);
+    if (step < 3) setStep(step + 1);
   };
 
   const prevStep = () => {
@@ -80,7 +78,7 @@ export default function App() {
   const currentPkg = PACKAGING_OPTIONS.find(p => p.id === order.packagingId) || PACKAGING_OPTIONS[0];
 
   const handleStep4Next = () => {
-    nextStep();
+    // End of workflow - already handled by direct WhatsApp links
   };
 
   // Render proper step content
@@ -112,24 +110,11 @@ export default function App() {
         );
       case 3:
         return (
-          <Step3CupModel
-            selectedMugModelId={order.mugModelId}
-            onSelect={updateMugModel}
-            onNext={nextStep}
-          />
-        );
-      case 4:
-        return (
           <Step4Packaging
             selectedPackagingId={order.packagingId}
             selectedMugModel={currentMug}
             onSelect={updatePackaging}
             onNext={handleStep4Next}
-          />
-        );
-      case 5:
-        return (
-          <Step5Summary
             order={order}
           />
         );
@@ -176,7 +161,7 @@ export default function App() {
           {step > 0 && (
             <WizardHeader
               currentStep={step}
-              totalSteps={5}
+              totalSteps={3}
               onBack={prevStep}
             />
           )}
@@ -197,7 +182,7 @@ export default function App() {
           </main>
 
           {/* Sticky checkout controller button block (fished at the bottom of standard mobile setup) */}
-          {step > 0 && step < 5 && (
+          {step > 0 && step < 3 && (
             <div id="sticky-footer" className="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto z-20 px-4.5 py-4 bg-[#fffdfd]/90 backdrop-blur-md border-t border-rose-100/30 flex items-center justify-between gap-3 lg:absolute lg:bottom-0 lg:rounded-b-[32px]">
               
               {step === 1 && (
@@ -211,7 +196,7 @@ export default function App() {
                     onClick={nextStep}
                     className="bg-red-500 hover:bg-red-600 text-white font-extrabold text-xs px-3.5 py-2 rounded-lg flex items-center gap-1 cursor-pointer transition-colors"
                   >
-                    Pular
+                    Próximo Passo
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -221,42 +206,6 @@ export default function App() {
               {step === 2 && (
                 <div className="w-full text-center text-[10px] text-gray-500 font-medium">
                   Insira as informações acima e clique em <span className="font-bold text-red-600">Confirmar Verso</span>
-                </div>
-              )}
-
-              {step === 3 && (
-                <div className="w-full flex items-center justify-between bg-rose-50/30 p-2 rounded-xl border border-rose-100/30">
-                  <div className="text-left">
-                    <span className="text-[9px] uppercase font-bold text-slate-400">Caneca Escolhida:</span>
-                    <p className="text-xs font-bold text-slate-800 leading-tight truncate max-w-[180px]">{currentMug.name}</p>
-                  </div>
-                  <button
-                    id="footer-next-stage-3"
-                    onClick={nextStep}
-                    className="bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl flex items-center gap-1 shadow-xs cursor-pointer"
-                  >
-                    Próximo Passo
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              )}
-
-              {step === 4 && (
-                <div className="w-full flex items-center justify-between gap-2.5">
-                  <div className="text-left">
-                    <span className="text-[9px] uppercase font-bold text-slate-400">Total do Pedido:</span>
-                    <p className="text-sm font-black text-rose-600">
-                      R$ {(currentMug.price + getPackagingPrice(order.packagingId, currentMug.price)).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-                    </p>
-                  </div>
-                  <button
-                    id="footer-next-stage-4"
-                    onClick={nextStep}
-                    className="flex-1 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-extrabold text-xs py-3 rounded-xl flex items-center justify-center gap-1 shadow-md cursor-pointer transition-all"
-                  >
-                    Ver Resumo Geral
-                    <ArrowRight className="w-3.5 h-3.5 text-rose-500" />
-                  </button>
                 </div>
               )}
 
